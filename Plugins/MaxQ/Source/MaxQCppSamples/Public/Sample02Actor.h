@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Sample02Actor.generated.h"
 
@@ -20,30 +19,30 @@
 UCLASS(HideCategories = (Transform, Rendering, Replication, Collision, HLOD, Input, Actor, Advanced, Cooking))
 class MAXQCPPSAMPLES_API ASample02Actor : public AActor
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    UPROPERTY(EditInstanceOnly, Category = "MaxQ|Samples")
-    TArray<FString> RequiredKernels;
+	UPROPERTY(EditInstanceOnly, Category = "MaxQ|Samples")
+	TArray<FString> RequiredKernels;
 
-    UPROPERTY(EditInstanceOnly, Category = "MaxQ|Samples")
-    FString InsightSCLKKernel;
+	UPROPERTY(EditInstanceOnly, Category = "MaxQ|Samples")
+	FString InsightSCLKKernel;
 
-    UPROPERTY(EditInstanceOnly, Category = "MaxQ|Samples")
-    FString InsightMissionFKKernel;
+	UPROPERTY(EditInstanceOnly, Category = "MaxQ|Samples")
+	FString InsightMissionFKKernel;
 
 
 public:
-    ASample02Actor();
-    void BeginPlay() override;
-    void Tick(float DeltaTime) override;
+	ASample02Actor();
+	void BeginPlay() override;
+	void Tick(float DeltaTime) override;
 
-    void InitializeSpice();
+	void InitializeSpice();
 
-    void J2000();
-    void J2020();
-    void Now();
-    void Insight();
+	void J2000();
+	void J2020();
+	void Now();
+	void Insight();
 };
 
 

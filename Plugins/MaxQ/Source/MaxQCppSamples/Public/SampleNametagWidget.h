@@ -17,9 +17,9 @@
 UCLASS(Category="MaxQSamples")
 class MAXQCPPSAMPLES_API USampleNametagWidget : public UUserWidget
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintImplementableEvent)
-    void Init(const FString& NewObjectName, FPositionUpdate& NewPositionUpdate, FVisibilityUpdate& VisibilityUpdate);
+	UFUNCTION(BlueprintImplementableEvent)
+	void Init(const FString& NewObjectName, FPositionUpdate& NewPositionUpdate, FVisibilityUpdate& VisibilityUpdate);
 };

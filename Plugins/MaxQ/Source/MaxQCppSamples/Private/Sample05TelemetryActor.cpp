@@ -8,7 +8,6 @@
 #include "Sample05TelemetryActor.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/PlayerController.h"
-#include "Spice.h"
 #include "SpiceData.h"
 #include "SpiceMath.h"
 #include "SpiceConstants.h"
@@ -24,15 +23,15 @@ using namespace MaxQ::Math;
 
 ASample05TelemetryActor::ASample05TelemetryActor()
 {
-    // For a lot of telemetry objects (asteroids, NEO debris), we might use one instanced mesh for all of them.
-    // In this case we'll use individual Actors with name labels.
-    MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("Root");
-    SetRootComponent(MeshComponent);
+	// For a lot of telemetry objects (asteroids, NEO debris), we might use one instanced mesh for all of them.
+	// In this case we'll use individual Actors with name labels.
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("Root");
+	SetRootComponent(MeshComponent);
 
-    PrimaryActorTick.bCanEverTick = true;
-    PrimaryActorTick.TickGroup = ETickingGroup::TG_PostPhysics;
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.TickGroup = ETickingGroup::TG_PostPhysics;
 
-    VelocityBumpFraction = 0.01;
+	VelocityBumpFraction = 0.01;
 }
 
 
@@ -42,7 +41,7 @@ ASample05TelemetryActor::ASample05TelemetryActor()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::BeginPlay()
 {
-    Super::BeginPlay();
+	Super::BeginPlay();
 }
 
 
@@ -52,45 +51,45 @@ void ASample05TelemetryActor::BeginPlay()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::Init(const FString& NewObjectId, const FString& NewObjectName, const FSTwoLineElements& NewTLEs, bool bNewShouldRenderOrbit)
 {
-    ObjectId = NewObjectId;
-    ObjectName = NewObjectName;
-    TLElements = NewTLEs;
-    bShouldRenderOrbit = false;
+	ObjectId = NewObjectId;
+	ObjectName = NewObjectName;
+	TLElements = NewTLEs;
+	bShouldRenderOrbit = false;
 
-    // Create the Nametag UI-widget.
-    if (NametagWidgetInstance.Get() == nullptr && NametagWidgetClass && GetNetMode() != ENetMode::NM_DedicatedServer)
-    {
-        USampleNametagWidget* Nametag = CreateWidget<USampleNametagWidget>(GetWorld()->GetFirstPlayerController(), NametagWidgetClass);
+	// Create the Nametag UI-widget.
+	if (NametagWidgetInstance.Get() == nullptr && NametagWidgetClass && GetNetMode() != ENetMode::NM_DedicatedServer)
+	{
+		USampleNametagWidget* Nametag = CreateWidget<USampleNametagWidget>(GetWorld()->GetFirstPlayerController(), NametagWidgetClass);
 
-        if (Nametag)
-        {
-            // The nametag needs to know:
-            // 1. The object's name.
-            // 2. When the position updates.
-            // 3. When the nametag is visible or hidden behind the planet
-            Nametag->Init(ObjectName, PositionUpdate, VisibilityUpdate);
-        }
+		if (Nametag)
+		{
+			// The nametag needs to know:
+			// 1. The object's name.
+			// 2. When the position updates.
+			// 3. When the nametag is visible or hidden behind the planet
+			Nametag->Init(ObjectName, PositionUpdate, VisibilityUpdate);
+		}
 
-        // Initially hide the nametag until we know otherwise.
-        NametagWidgetInstance = Nametag;
-        VisibilityUpdate.ExecuteIfBound(false);
+		// Initially hide the nametag until we know otherwise.
+		NametagWidgetInstance = Nametag;
+		VisibilityUpdate.ExecuteIfBound(false);
 
-        // Use the telemetry to compute a state vector (location & velocity)
-        if (ComputeConic.IsBound())
-        {
-            FSStateVector StateVector;
-            
-            // Compute the shape of the orbit (conic: ellipse or hyperbola)
-            // This will be used to render the orbit if desired.
-            if (PropagateByTLEs.Execute(TLElements, StateVector))
-            {
-                if (ComputeConic.Execute(StateVector, OrbitalConic, bIsHyperbolic))
-                {
-                    bShouldRenderOrbit = bNewShouldRenderOrbit;
-                }
-            }
-        }
-    }
+		// Use the telemetry to compute a state vector (location & velocity)
+		if (ComputeConic.IsBound())
+		{
+			FSStateVector StateVector;
+			
+			// Compute the shape of the orbit (conic: ellipse or hyperbola)
+			// This will be used to render the orbit if desired.
+			if (PropagateByTLEs.Execute(TLElements, StateVector))
+			{
+				if (ComputeConic.Execute(StateVector, OrbitalConic, bIsHyperbolic))
+				{
+					bShouldRenderOrbit = bNewShouldRenderOrbit;
+				}
+			}
+		}
+	}
 }
 
 
@@ -100,46 +99,46 @@ void ASample05TelemetryActor::Init(const FString& NewObjectId, const FString& Ne
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::Tick(float DeltaSeconds)
 {
-    // Which mode are we in?  Propagate accordingly
-    if (PropagateStateByTLEs)
-    {
-        PropagateTLE();
-    }
-    else
-    {
-        PropagateKepler();
-    }
+	// Which mode are we in?  Propagate accordingly
+	if (PropagateStateByTLEs)
+	{
+		PropagateTLE();
+	}
+	else
+	{
+		PropagateKepler();
+	}
 
-    bool bVisible = true;
+	bool bVisible = true;
 
-    // Don't bother unless this is a client/listen server...
-    // But fade the object's label out unless it's near the front of the
-    // planet... don't let it be so visible behind it.
-    if (GetNetMode() != ENetMode::NM_DedicatedServer)
-    {
-        // Dirty hack cheat... Knowing the view is centered around the origin
-        APlayerController* PC = GetWorld()->GetFirstPlayerController();
-        if (PC && PC->PlayerCameraManager)
-        {
-            FVector CameraLocation = PC->PlayerCameraManager->GetCameraLocation();
-            FVector MyLocation = GetActorLocation();
-            FVector LookDirection = MyLocation - CameraLocation;
+	// Don't bother unless this is a client/listen server...
+	// But fade the object's label out unless it's near the front of the
+	// planet... don't let it be so visible behind it.
+	if (GetNetMode() != ENetMode::NM_DedicatedServer)
+	{
+		// Dirty hack cheat... Knowing the view is centered around the origin
+		APlayerController* PC = GetWorld()->GetFirstPlayerController();
+		if (PC && PC->PlayerCameraManager)
+		{
+			FVector CameraLocation = PC->PlayerCameraManager->GetCameraLocation();
+			FVector MyLocation = GetActorLocation();
+			FVector LookDirection = MyLocation - CameraLocation;
 
-            bVisible = LookDirection.Dot(MyLocation) < 0;
-            if (bWasVisible ^ bVisible)
-            {
-                VisibilityUpdate.ExecuteIfBound(bVisible);
-                bWasVisible = bVisible;
-            }
-        }
-    }
+			bVisible = LookDirection.Dot(MyLocation) < 0;
+			if (bWasVisible ^ bVisible)
+			{
+				VisibilityUpdate.ExecuteIfBound(bVisible);
+				bWasVisible = bVisible;
+			}
+		}
+	}
 
-    // Render the debug orbit for a sub-set of objects.
-    // Debug orbit rendering is SLOW.
-    if (RenderDebugOrbit.IsBound() && bShouldRenderOrbit)
-    {
-        RenderDebugOrbit.Execute(OrbitalConic, bIsHyperbolic, PropagateStateByTLEs ? FColor::Red : FColor::Yellow, PropagateStateByTLEs ? 0.2f : 0.5f);
-    }
+	// Render the debug orbit for a sub-set of objects.
+	// Debug orbit rendering is SLOW.
+	if (RenderDebugOrbit.IsBound() && bShouldRenderOrbit)
+	{
+		RenderDebugOrbit.Execute(OrbitalConic, bIsHyperbolic, PropagateStateByTLEs ? FColor::Red : FColor::Yellow, PropagateStateByTLEs ? 0.2f : 0.5f);
+	}
 }
 
 
@@ -154,25 +153,25 @@ void ASample05TelemetryActor::Tick(float DeltaSeconds)
 
 void ASample05TelemetryActor::PropagateTLE()
 {
-    // Sample05Actor owns the state of the universe... the current time, etc
-    // Instead of pulling thee state from there or pushing it to here,
-    // have that actor do the propagating etc.
-    if (PropagateByTLEs.IsBound() && XformPositionCallback.IsBound())
-    {
-        FSStateVector StateVector;
-        bool bResult = PropagateByTLEs.Execute(TLElements, StateVector);
+	// Sample05Actor owns the state of the universe... the current time, etc
+	// Instead of pulling thee state from there or pushing it to here,
+	// have that actor do the propagating etc.
+	if (PropagateByTLEs.IsBound() && XformPositionCallback.IsBound())
+	{
+		FSStateVector StateVector;
+		bool bResult = PropagateByTLEs.Execute(TLElements, StateVector);
 
-        // We got an orbital state vector (location etc)
-        // So transform it to a UE position and place the actor.
-        FVector UEScenegraphVector;
-        bResult &= XformPositionCallback.Execute(StateVector.r, UEScenegraphVector);
+		// We got an orbital state vector (location etc)
+		// So transform it to a UE position and place the actor.
+		FVector UEScenegraphVector;
+		bResult &= XformPositionCallback.Execute(StateVector.r, UEScenegraphVector);
 
-        if (bResult)
-        {
-            SetActorLocation(UEScenegraphVector);
-            PositionUpdate.ExecuteIfBound(UEScenegraphVector);
-        }
-    }
+		if (bResult)
+		{
+			SetActorLocation(UEScenegraphVector);
+			PositionUpdate.ExecuteIfBound(UEScenegraphVector);
+		}
+	}
 }
 
 
@@ -187,21 +186,21 @@ void ASample05TelemetryActor::PropagateTLE()
 
 void ASample05TelemetryActor::PropagateKepler()
 {
-    // Same deal as above (PropagateTLE) about the state of the universe etc.
-    if (PropagateByKeplerianElements.IsBound() && XformPositionCallback.IsBound())
-    {
-        FSStateVector StateVector;
-        if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            // Transform the state to a UE position and place the actor.
-            FVector UEScenegraphVector;
-            if (XformPositionCallback.Execute(StateVector.r, UEScenegraphVector))
-            {
-                SetActorLocation(UEScenegraphVector);
-                PositionUpdate.ExecuteIfBound(UEScenegraphVector);
-            }
-        }
-    }
+	// Same deal as above (PropagateTLE) about the state of the universe etc.
+	if (PropagateByKeplerianElements.IsBound() && XformPositionCallback.IsBound())
+	{
+		FSStateVector StateVector;
+		if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			// Transform the state to a UE position and place the actor.
+			FVector UEScenegraphVector;
+			if (XformPositionCallback.Execute(StateVector.r, UEScenegraphVector))
+			{
+				SetActorLocation(UEScenegraphVector);
+				PositionUpdate.ExecuteIfBound(UEScenegraphVector);
+			}
+		}
+	}
 }
 
 
@@ -217,24 +216,24 @@ void ASample05TelemetryActor::PropagateKepler()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::GoKeplerian()
 {
-    if (PropagateStateByTLEs && PropagateByTLEs.IsBound())
-    {
-        FSStateVector StateVector;
-        bool bResult = PropagateByTLEs.Execute(TLElements, StateVector);
+	if (PropagateStateByTLEs && PropagateByTLEs.IsBound())
+	{
+		FSStateVector StateVector;
+		bool bResult = PropagateByTLEs.Execute(TLElements, StateVector);
 
-        if (bResult)
-        {
-            bResult &= GetOrbitalElements.Execute(StateVector, KeplerianElements);
-        }
+		if (bResult)
+		{
+			bResult &= GetOrbitalElements.Execute(StateVector, KeplerianElements);
+		}
 
-        if (bResult)
-        {   // No more updating by TLEs!  Go Kepler!
-            PropagateStateByTLEs = false;
-        }
-        
-        // Start rendering this orbit, if we're not already.
-        bShouldRenderOrbit = true;
-    }
+		if (bResult)
+		{   // No more updating by TLEs!  Go Kepler!
+			PropagateStateByTLEs = false;
+		}
+		
+		// Start rendering this orbit, if we're not already.
+		bShouldRenderOrbit = true;
+	}
 }
 
 
@@ -246,26 +245,26 @@ void ASample05TelemetryActor::GoKeplerian()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::BumpVelocity(const FSVelocityVector& Direction)
 {
-    if (PropagateByKeplerianElements.IsBound() && GetOrbitalElements.IsBound() && GetConicFromKepler.IsBound())
-    {
-        // Make sure the orbital elements are valid.
-        GoKeplerian();
+	if (PropagateByKeplerianElements.IsBound() && GetOrbitalElements.IsBound() && GetConicFromKepler.IsBound())
+	{
+		// Make sure the orbital elements are valid.
+		GoKeplerian();
 
-        // Compute the current statevector from orbital elements.
-        FSStateVector StateVector;
-        if (!PropagateStateByTLEs && PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            // Adjust the velocity.
-            StateVector.v += Direction;
-            
-            // Now recompute the new orbital elements
-            if (GetOrbitalElements.Execute(StateVector, KeplerianElements))
-            {
-                // And update the debug-orbit conic (ellipse/hyperbola) for orbit rendering
-                GetConicFromKepler.Execute(KeplerianElements, OrbitalConic, bIsHyperbolic);
-            }
-        }
-    }
+		// Compute the current statevector from orbital elements.
+		FSStateVector StateVector;
+		if (!PropagateStateByTLEs && PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			// Adjust the velocity.
+			StateVector.v += Direction;
+			
+			// Now recompute the new orbital elements
+			if (GetOrbitalElements.Execute(StateVector, KeplerianElements))
+			{
+				// And update the debug-orbit conic (ellipse/hyperbola) for orbit rendering
+				GetConicFromKepler.Execute(KeplerianElements, OrbitalConic, bIsHyperbolic);
+			}
+		}
+	}
 }
 
 
@@ -276,16 +275,16 @@ void ASample05TelemetryActor::BumpVelocity(const FSVelocityVector& Direction)
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::BumpPrograde()
 {
-    if(PropagateByKeplerianElements.IsBound())
-    {
-        GoKeplerian();
+	if(PropagateByKeplerianElements.IsBound())
+	{
+		GoKeplerian();
 
-        FSStateVector StateVector;
-        if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            BumpVelocity(StateVector.v * VelocityBumpFraction);
-        }
-    }
+		FSStateVector StateVector;
+		if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			BumpVelocity(StateVector.v * VelocityBumpFraction);
+		}
+	}
 }
 
 
@@ -296,16 +295,16 @@ void ASample05TelemetryActor::BumpPrograde()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::BumpRetrograde()
 {
-    if (PropagateByKeplerianElements.IsBound())
-    {
-        GoKeplerian();
+	if (PropagateByKeplerianElements.IsBound())
+	{
+		GoKeplerian();
 
-        FSStateVector StateVector;
-        if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            BumpVelocity(-StateVector.v * VelocityBumpFraction);
-        }
-    }
+		FSStateVector StateVector;
+		if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			BumpVelocity(-StateVector.v * VelocityBumpFraction);
+		}
+	}
 }
 
 
@@ -316,20 +315,20 @@ void ASample05TelemetryActor::BumpRetrograde()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::BumpRadial()
 {
-    if (PropagateByKeplerianElements.IsBound())
-    {
-        GoKeplerian();
+	if (PropagateByKeplerianElements.IsBound())
+	{
+		GoKeplerian();
 
-        FSStateVector StateVector;
-        if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            FSDistance Speed;
-            auto Radial = Unorm(Speed, StateVector.r);
-            FSVelocityVector bump = VelocityBumpFraction * StateVector.v.Magnitude() * Radial;
+		FSStateVector StateVector;
+		if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			FSDistance Speed;
+			auto Radial = Unorm(Speed, StateVector.r);
+			FSVelocityVector bump = VelocityBumpFraction * StateVector.v.Magnitude() * Radial;
 
-            BumpVelocity(bump);
-        }
-    }
+			BumpVelocity(bump);
+		}
+	}
 }
 
 
@@ -340,20 +339,20 @@ void ASample05TelemetryActor::BumpRadial()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::BumpAntiRadial()
 {
-    if (PropagateByKeplerianElements.IsBound())
-    {
-        GoKeplerian();
+	if (PropagateByKeplerianElements.IsBound())
+	{
+		GoKeplerian();
 
-        FSStateVector StateVector;
-        if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            FSDistance Speed;
-            auto Radial = Unorm(Speed, StateVector.r);
-            FSVelocityVector bump = -VelocityBumpFraction * Radial * StateVector.v.Magnitude();
+		FSStateVector StateVector;
+		if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			FSDistance Speed;
+			auto Radial = Unorm(Speed, StateVector.r);
+			FSVelocityVector bump = -VelocityBumpFraction * Radial * StateVector.v.Magnitude();
 
-            BumpVelocity(bump);
-        }
-    }
+			BumpVelocity(bump);
+		}
+	}
 }
 
 
@@ -366,19 +365,19 @@ void ASample05TelemetryActor::BumpAntiRadial()
 //-----------------------------------------------------------------------------
 void ASample05TelemetryActor::BumpNormal()
 {
-    if (PropagateByKeplerianElements.IsBound() && GetOrbitalElements.IsBound() && GetConicFromKepler.IsBound())
-    {
-        GoKeplerian();
+	if (PropagateByKeplerianElements.IsBound() && GetOrbitalElements.IsBound() && GetConicFromKepler.IsBound())
+	{
+		GoKeplerian();
 
-        FSStateVector StateVector;
-        if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            auto Normal = Ucrss(StateVector);
+		FSStateVector StateVector;
+		if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			auto Normal = Ucrss(StateVector);
 
-            FSVelocityVector bump = VelocityBumpFraction * Normal * StateVector.v.Magnitude();
-            BumpVelocity(bump);
-        }
-    }
+			FSVelocityVector bump = VelocityBumpFraction * Normal * StateVector.v.Magnitude();
+			BumpVelocity(bump);
+		}
+	}
 }
 
 
@@ -391,17 +390,17 @@ void ASample05TelemetryActor::BumpNormal()
 
 void ASample05TelemetryActor::BumpAntiNormal()
 {
-    if (PropagateByKeplerianElements.IsBound() && GetOrbitalElements.IsBound() && GetConicFromKepler.IsBound())
-    {
-        GoKeplerian();
+	if (PropagateByKeplerianElements.IsBound() && GetOrbitalElements.IsBound() && GetConicFromKepler.IsBound())
+	{
+		GoKeplerian();
 
-        FSStateVector StateVector;
-        if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
-        {
-            auto Normal = Ucrss(StateVector);
+		FSStateVector StateVector;
+		if (PropagateByKeplerianElements.Execute(KeplerianElements, StateVector))
+		{
+			auto Normal = Ucrss(StateVector);
 
-            FSVelocityVector bump = -VelocityBumpFraction * Normal * StateVector.v.Magnitude();
-            BumpVelocity(bump);
-        }
-    }
+			FSVelocityVector bump = -VelocityBumpFraction * Normal * StateVector.v.Magnitude();
+			BumpVelocity(bump);
+		}
+	}
 }

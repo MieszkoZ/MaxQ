@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "SpiceTypes.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "GetTelemetryFromServer.generated.h"
@@ -20,22 +18,22 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTelemetryCallback_AsyncExecutionCo
 UCLASS()
 class MAXQCPPSAMPLES_API UGetTelemetryFromServer_AsyncExecution : public UBlueprintAsyncActionBase
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    // Execute the actual load
-    virtual void Activate() override;
+	// Execute the actual load
+	virtual void Activate() override;
 
-    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "MaxQSamples", WorldContext = "WorldContextObject"))
-    static UGetTelemetryFromServer_AsyncExecution* IssueTelemetryRequest(UObject* WorldContextObject, FString ObjectId, FString Format);
+	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "MaxQSamples", WorldContext = "WorldContextObject"))
+	static UGetTelemetryFromServer_AsyncExecution* IssueTelemetryRequest(UObject* WorldContextObject, FString ObjectId, FString Format);
 
-    UPROPERTY(BlueprintAssignable)
-    FTelemetryCallback_AsyncExecutionCompleted OnSuccess;
+	UPROPERTY(BlueprintAssignable)
+	FTelemetryCallback_AsyncExecutionCompleted OnSuccess;
 
-    UPROPERTY(BlueprintAssignable)
-    FTelemetryCallback_AsyncExecutionCompleted OnError;
+	UPROPERTY(BlueprintAssignable)
+	FTelemetryCallback_AsyncExecutionCompleted OnError;
 
-    // Args from IssueTelemetryRequest (to be used by Activate)
-    FString ObjectIdArg;
-    FString FormatArg;
+	// Args from IssueTelemetryRequest (to be used by Activate)
+	FString ObjectIdArg;
+	FString FormatArg;
 };
