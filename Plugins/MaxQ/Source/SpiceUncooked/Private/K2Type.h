@@ -14,7 +14,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "EdGraphSchema_K2.h"
 #include "SpiceTypes.h"
 #include "K2Type.generated.h"

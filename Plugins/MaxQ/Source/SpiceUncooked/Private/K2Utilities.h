@@ -14,10 +14,6 @@
 #pragma once
 
 #include "EdGraphSchema_K2.h"
-
-#include "KismetCompiler.h"
-#include "BlueprintActionDatabaseRegistrar.h"
-#include "BlueprintNodeSpawner.h"
 #include "K2Type.h"
 
 constexpr FLinearColor NodeBackgroundColor{ 0.1f, 0.82f, 0.2f };

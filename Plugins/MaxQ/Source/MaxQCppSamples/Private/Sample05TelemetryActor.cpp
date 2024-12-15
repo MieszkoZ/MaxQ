@@ -9,7 +9,11 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Spice.h"
+#include "SpiceData.h"
+#include "SpiceMath.h"
+#include "SpiceConstants.h"
 #include "SampleUtilities.h"
+#include "SpiceOperators.h"
 
 using MaxQSamples::Log;
 using namespace MaxQ::Data;

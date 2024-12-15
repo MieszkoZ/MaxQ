@@ -15,7 +15,9 @@
 
 #include "SpiceOrbits.h"
 #include "DrawDebugHelpers.h"
+#include "SpiceMath.h"
 #include "SpiceUtilities.h"
+#include "SpiceOperators.h"
 
 PRAGMA_PUSH_PLATFORM_DEFAULT_PACKING
 extern "C"

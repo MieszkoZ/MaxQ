@@ -41,10 +41,8 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "SpicePlatformDefs.h"
-#include "SpiceLog.h"
 #include "SpiceEnums.h"
 #include "SpiceStructs.h"
 #include "SpiceTypes.generated.h"

@@ -23,7 +23,7 @@
 
 #pragma once
 
-#include "SpiceTypes.h"
+#include "CoreMinimal.h"
 
 namespace MaxQ::Core
 {

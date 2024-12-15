@@ -22,6 +22,7 @@
 #include "SpiceK2.h"
 #include "SpicePlatformDefs.h"
 #include "Spice.h"
+#include "SpiceData.h"
 #include "SpiceUtilities.h"
 #include "SpiceMath.h"
 

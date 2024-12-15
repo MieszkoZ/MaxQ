@@ -23,7 +23,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SpiceTypes.h"
 
 PRAGMA_PUSH_PLATFORM_DEFAULT_PACKING

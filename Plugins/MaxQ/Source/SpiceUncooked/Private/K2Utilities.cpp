@@ -14,7 +14,9 @@
 
 #include "K2Utilities.h"
 #include "BlueprintActionDatabaseRegistrar.h"
+#include "BlueprintNodeSpawner.h"
 #include "K2Node_MathGenericInterface.h"
+#include "KismetCompiler.h"
 
 void RegisterAction(class FBlueprintActionDatabaseRegistrar& ActionRegistrar, UClass* actionKey)
 {

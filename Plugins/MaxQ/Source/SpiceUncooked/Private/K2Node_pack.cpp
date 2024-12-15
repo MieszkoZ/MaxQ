@@ -18,10 +18,8 @@
 #include "ToolMenu.h"
 #include "K2Node_CallFunction.h"
 #include "SpiceK2.h"
-#include "SpicePlatformDefs.h"
 #include "K2SingleOutputOp.h"
-//#include "EdGraphSchema_K2.h"
-//#include "KismetCompiler.h"
+#include "KismetCompiler.h"
 
 
 #define LOCTEXT_NAMESPACE "K2Node_pack"

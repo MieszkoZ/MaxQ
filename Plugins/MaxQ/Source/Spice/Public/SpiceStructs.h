@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SpicePlatformDefs.h"
 #include "SpiceEnums.h"
 #include "SpiceStructs.generated.h"

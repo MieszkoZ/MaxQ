@@ -14,11 +14,8 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "K2Node.h"
 #include "SpiceTypes.h"
-#include "K2Type.h"
-#include "K2Conversion.h"
 #include "K2SingleOutputOpWithComponentFilter.h"
 #include "K2Node_OutWithSelectorOp.h"
 #include "K2Node_bodvrd.generated.h"

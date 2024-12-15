@@ -9,8 +9,12 @@
 #include "Components/SceneComponent.h"
 #include "Engine/Engine.h"
 #include "Spice.h"
-#include "SpiceK2.h"
+#include "SpiceData.h"
+#include "SpiceMath.h"
+#include "SpiceConstants.h"
 #include "SampleUtilities.h"
+#include "SpiceCore.h"
+#include "SpiceOperators.h"
 
 using MaxQSamples::Log;
 using namespace MaxQ::Data;

@@ -53,13 +53,17 @@
 #include "Containers/StringFwd.h"
 #include "Spice.h"
 #include "SpiceUtilities.h"
+#include "SpiceOperators.h"
 
 #include <iomanip>
 #include <sstream>
 #include <string>
 #include <cmath>
 
+#include "SpiceConstants.h"
+
 PRAGMA_PUSH_PLATFORM_DEFAULT_PACKING
+
 extern "C"
 {
 #include "SpiceUsr.h"

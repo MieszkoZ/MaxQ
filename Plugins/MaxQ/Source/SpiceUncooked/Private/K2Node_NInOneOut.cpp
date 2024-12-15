@@ -14,13 +14,8 @@
 
 #include "K2Node_NInOneOut.h"
 #include "K2Node_TwoInOneOut.h"
-#include "K2Utilities.h"
 #include "Kismet2/BlueprintEditorUtils.h"
 #include "ToolMenu.h"
-#include "K2Node_CallFunction.h"
-#include "SpiceK2.h"
-//#include "EdGraphSchema_K2.h"
-//#include "KismetCompiler.h"
 
 
 #define LOCTEXT_NAMESPACE "K2Node_NInOneOut"

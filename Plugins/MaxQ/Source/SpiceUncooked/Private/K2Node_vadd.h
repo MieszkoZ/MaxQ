@@ -14,7 +14,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "K2Node_NInOneOut.h"
 #include "K2Node_vadd.generated.h"
 

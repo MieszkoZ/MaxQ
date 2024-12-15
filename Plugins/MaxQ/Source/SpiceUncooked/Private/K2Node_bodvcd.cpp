@@ -16,17 +16,10 @@
 #include "K2Node_OutWithSelectorOp.h"
 #include "K2Utilities.h"
 #include "SpiceK2.h"
-
 #include "EdGraphSchema_K2.h"
-
-#include "KismetCompiler.h"
-#include "BlueprintActionDatabaseRegistrar.h"
-#include "BlueprintNodeSpawner.h"
-#include "K2Node_CallFunction.h"
 
 
 using namespace ENodeTitleType;
-
 
 #define LOCTEXT_NAMESPACE "K2Node_bodvcd"
 

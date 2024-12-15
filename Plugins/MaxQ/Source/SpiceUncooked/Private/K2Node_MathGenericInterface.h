@@ -14,7 +14,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "K2Node_MathGenericInterface.generated.h"
 

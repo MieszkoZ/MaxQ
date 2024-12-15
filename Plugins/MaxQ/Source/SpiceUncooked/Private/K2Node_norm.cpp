@@ -14,12 +14,10 @@
 
 #include "K2Node_norm.h"
 #include "K2Utilities.h"
-#include "Kismet2/BlueprintEditorUtils.h"
 #include "ToolMenu.h"
 #include "K2Node_CallFunction.h"
 #include "SpiceK2.h"
-#include "SpicePlatformDefs.h"
-#include "K2Node_norm.h"
+#include "KismetCompiler.h"
 
 
 #define LOCTEXT_NAMESPACE "K2Node_norm"

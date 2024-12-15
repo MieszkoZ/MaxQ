@@ -14,11 +14,10 @@
 
 #include "K2Node_mxv.h"
 #include "K2Utilities.h"
-#include "Kismet2/BlueprintEditorUtils.h"
 #include "ToolMenu.h"
 #include "K2Node_CallFunction.h"
+#include "KismetCompiler.h"
 #include "SpiceK2.h"
-#include "SpicePlatformDefs.h"
 
 
 #define LOCTEXT_NAMESPACE "K2Node_mxv"

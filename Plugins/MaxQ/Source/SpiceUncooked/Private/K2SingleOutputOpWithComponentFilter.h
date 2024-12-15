@@ -14,7 +14,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "K2Type.h"
 #include "K2Conversion.h"
 #include "K2SingleOutputOpWithComponentFilter.generated.h"

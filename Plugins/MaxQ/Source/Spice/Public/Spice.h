@@ -70,14 +70,8 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "SpiceConstants.h"
 #include "SpiceTypes.h"
-#include "SpiceCore.h"
-#include "SpiceMath.h"
-#include "SpiceData.h"
-#include "SpiceOperators.h"
 #include "Spice.generated.h"
 
 

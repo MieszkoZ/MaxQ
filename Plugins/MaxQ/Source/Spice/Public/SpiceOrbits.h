@@ -20,11 +20,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "GameFramework/Actor.h"
 #include "SpiceTypes.h"
-#include "Spice.h"
 #include "SpiceOrbits.generated.h"
 
 UCLASS(Category = "MaxQ")

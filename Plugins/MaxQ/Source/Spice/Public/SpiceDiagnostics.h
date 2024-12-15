@@ -21,7 +21,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "SpicePlatformDefs.h"
 #include "SpiceDiagnostics.generated.h"

@@ -25,6 +25,7 @@
 #include "SpiceUtilities.h"
 #include "Misc/Paths.h"
 #include "HAL/FileManager.h"
+#include "SpiceLog.h"
 
 PRAGMA_PUSH_PLATFORM_DEFAULT_PACKING
 extern "C"

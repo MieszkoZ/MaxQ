@@ -62,7 +62,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "SpiceTypes.h"
 #include "SpiceK2.generated.h"

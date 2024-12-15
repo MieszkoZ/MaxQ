@@ -59,6 +59,9 @@
 #include "SpiceUtilities.h"
 #include "SpiceMath.h"
 #include "algorithm"
+#include "SpiceData.h"
+#include "SpiceOperators.h"
+#include "SpiceLog.h"
 
 PRAGMA_PUSH_PLATFORM_DEFAULT_PACKING
 extern "C"

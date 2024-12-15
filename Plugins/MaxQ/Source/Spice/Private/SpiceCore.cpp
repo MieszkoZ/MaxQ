@@ -23,6 +23,7 @@
 
 #include "SpiceCore.h"
 #include "SpiceUtilities.h"
+#include "SpiceLog.h"
 
 PRAGMA_PUSH_PLATFORM_DEFAULT_PACKING
 extern "C"

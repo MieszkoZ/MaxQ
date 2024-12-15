@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Logging/LogMacros.h"
 
 // Log category for MaxQ SPICE releated messages.
 SPICE_API DECLARE_LOG_CATEGORY_EXTERN(LogSpice, Log, All);

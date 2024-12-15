@@ -14,12 +14,8 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "K2Node.h"
 #include "K2Type.h"
-#include "K2Node_CallFunction.h"
-#include "SpiceTypes.h"
-#include "K2Node_AddPinInterface.h"
 #include "Chaos/Vector.h"
 #include "K2Node_MathGenericInterface.h"
 #include "K2SingleInputOp.h"

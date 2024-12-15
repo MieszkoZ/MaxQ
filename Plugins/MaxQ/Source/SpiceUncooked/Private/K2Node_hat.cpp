@@ -14,14 +14,11 @@
 
 #include "K2Node_hat.h"
 #include "K2Utilities.h"
-#include "Kismet2/BlueprintEditorUtils.h"
 #include "ToolMenu.h"
 #include "K2Node_CallFunction.h"
 #include "SpiceK2.h"
-#include "SpicePlatformDefs.h"
 #include "K2SingleInputOp.h"
-//#include "EdGraphSchema_K2.h"
-//#include "KismetCompiler.h"
+#include "KismetCompiler.h"
 
 
 #define LOCTEXT_NAMESPACE "K2Node_hat"

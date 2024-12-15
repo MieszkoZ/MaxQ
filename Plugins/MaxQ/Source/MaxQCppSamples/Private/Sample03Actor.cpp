@@ -10,7 +10,11 @@
 #include "Engine/Engine.h"
 #include "EngineUtils.h"
 #include "Spice.h"
+#include "SpiceData.h"
+#include "SpiceMath.h"
+#include "SpiceConstants.h"
 #include "SampleUtilities.h"
+#include "SpiceOperators.h"
 
 using MaxQSamples::Log;
 using namespace MaxQ::Data;

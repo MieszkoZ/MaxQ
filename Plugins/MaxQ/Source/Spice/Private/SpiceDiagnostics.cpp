@@ -18,13 +18,9 @@
 #include "SpiceDiagnostics.h"
 #include "SpiceTypes.h"
 #include "Containers/StringFwd.h"
-#include "Spice.h"
 #include "SpiceUtilities.h"
 #include "Misc/Paths.h"
 
-#include <iomanip>
-#include <sstream>
-#include <string>
 #include <cmath>
 
 
