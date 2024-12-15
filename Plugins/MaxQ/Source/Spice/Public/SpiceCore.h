@@ -27,7 +27,7 @@
 
 namespace MaxQ::Core
 {
-    SPICE_API void InitAll(bool bPrintCallstack = false);
-    SPICE_API void Reset();
-    SPICE_API void ClearAll();
+	SPICE_API void InitAll(bool bPrintCallstack = false);
+	SPICE_API void Reset();
+	SPICE_API void ClearAll();
 };

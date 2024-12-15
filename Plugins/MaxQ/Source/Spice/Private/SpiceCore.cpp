@@ -36,58 +36,58 @@ using namespace MaxQ::Private;
 
 namespace MaxQ::Core
 {
-    SPICE_API void InitAll(bool PrintCallstack)
-    {
-        Reset();
-        ClearAll();
-        char szBuffer[SpiceLongMessageMaxLength];
+	SPICE_API void InitAll(bool PrintCallstack)
+	{
+		Reset();
+		ClearAll();
+		char szBuffer[SpiceLongMessageMaxLength];
 
-        SpiceStringCopy(szBuffer, "SHORT,LONG");
-        errprt_c("SET", sizeof(szBuffer), szBuffer);
+		SpiceStringCopy(szBuffer, "SHORT,LONG");
+		errprt_c("SET", sizeof(szBuffer), szBuffer);
 
-        SpiceStringCopy(szBuffer, "REPORT");
-        erract_c("SET", sizeof(szBuffer), szBuffer);
+		SpiceStringCopy(szBuffer, "REPORT");
+		erract_c("SET", sizeof(szBuffer), szBuffer);
 
-        SpiceStringCopy(szBuffer, "NULL");
-        errdev_c("SET", sizeof(szBuffer), szBuffer);
+		SpiceStringCopy(szBuffer, "NULL");
+		errdev_c("SET", sizeof(szBuffer), szBuffer);
 
-        UE_LOG(LogSpice, Log,
-            TEXT("\n*************************************************************************")
-            TEXT("\n* MaxQ SPICE 'Init All'")
-            TEXT("\n* All kernel memory and error states have been cleared and reset.")
-            TEXT("\n***********************************************************************************")
-        );
+		UE_LOG(LogSpice, Log,
+			TEXT("\n*************************************************************************")
+			TEXT("\n* MaxQ SPICE 'Init All'")
+			TEXT("\n* All kernel memory and error states have been cleared and reset.")
+			TEXT("\n***********************************************************************************")
+		);
 
 #if WITH_EDITORONLY_DATA
-        if (PrintCallstack)
-        {
-            PrintScriptCallstack();
-        }
+		if (PrintCallstack)
+		{
+			PrintScriptCallstack();
+		}
 #endif
 
-        UnexpectedErrorCheck();
-    }
+		UnexpectedErrorCheck();
+	}
 
 
-    /*
-    Exceptions
-       This routine does not detect any errors.
+	/*
+	Exceptions
+	   This routine does not detect any errors.
 
-       However, this routine is part of the CSPICE error
-       handling mechanism.
-    */
-    SPICE_API void Reset()
-    {
-        reset_c();
+	   However, this routine is part of the CSPICE error
+	   handling mechanism.
+	*/
+	SPICE_API void Reset()
+	{
+		reset_c();
 
-        UE_LOG(LogSpice, Log, TEXT("MaxQ SPICE 'Reset' reset error handling state"));
-    }
+		UE_LOG(LogSpice, Log, TEXT("MaxQ SPICE 'Reset' reset error handling state"));
+	}
 
-    SPICE_API void ClearAll()
-    {
-        kclear_c();
-        clpool_c();
+	SPICE_API void ClearAll()
+	{
+		kclear_c();
+		clpool_c();
 
-        UE_LOG(LogSpice, Log, TEXT("MaxQ SPICE 'Clear All' cleared kernel memory & pool"));
-    }
+		UE_LOG(LogSpice, Log, TEXT("MaxQ SPICE 'Clear All' cleared kernel memory & pool"));
+	}
 }

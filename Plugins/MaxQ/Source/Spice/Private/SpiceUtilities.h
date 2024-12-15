@@ -34,34 +34,34 @@ PRAGMA_POP_PLATFORM_DEFAULT_PACKING
 
 namespace MaxQ::Private
 {
-    FString toPath(const FString& file);
+	FString toPath(const FString& file);
 
-    template<class T>
-    inline void ZeroOut(T(&value)[3][3])
-    {
-        FMemory::Memset(value, 0);
-    }
+	template<class T>
+	void ZeroOut(T(&value)[3][3])
+	{
+		FMemory::Memset(value, 0);
+	}
 
-    template<class T>
-    inline void ZeroOut(T(&value)[6][6])
-    {
-        FMemory::Memset(value, 0);
-    }
+	template<class T>
+	void ZeroOut(T(&value)[6][6])
+	{
+		FMemory::Memset(value, 0);
+	}
 
 
-    template<class T>
-    inline void ZeroOut(T& value)
-    {
-        FMemory::Memset(value, 0);
-    }
+	template<class T>
+	void ZeroOut(T& value)
+	{
+		FMemory::Memset(value, 0);
+	}
 
-    void CopyFrom(const SpicePlane& _plane, FSPlane& dest);
-    void CopyTo(const FSPlane& src, SpicePlane& _plane);
-    void CopyFrom(const SpiceEllipse& _ellipse, FSEllipse& dest);
-    void CopyTo(const FSEllipse& src, SpiceEllipse& _ellipse);
+	void CopyFrom(const SpicePlane& _plane, FSPlane& dest);
+	void CopyTo(const FSPlane& src, SpicePlane& _plane);
+	void CopyFrom(const SpiceEllipse& _ellipse, FSEllipse& dest);
+	void CopyTo(const FSEllipse& src, SpiceEllipse& _ellipse);
 
-    uint8 ErrorCheck(ES_ResultCode* ResultCode, FString* ErrorMessage, bool BeQuiet = false);
-    uint8 ErrorCheck(ES_ResultCode& ResultCode, FString& ErrorMessage, bool BeQuiet = false);
-    uint8 UnexpectedErrorCheck(bool bReset = true);
-    void MakeErrorGutter(ES_ResultCode*& pResultCode, FString*& pErrorMessage);
+	uint8 ErrorCheck(ES_ResultCode* ResultCode, FString* ErrorMessage, bool BeQuiet = false);
+	uint8 ErrorCheck(ES_ResultCode& ResultCode, FString& ErrorMessage, bool BeQuiet = false);
+	uint8 UnexpectedErrorCheck(bool bReset = true);
+	void MakeErrorGutter(ES_ResultCode*& pResultCode, FString*& pErrorMessage);
 }

@@ -34,10 +34,10 @@ PRAGMA_POP_PLATFORM_DEFAULT_PACKING
 
 FSQuaternion operator*(const FSQuaternion& lhs, const FSQuaternion& rhs)
 {
-    SpiceDouble _qout[4];
-    SpiceDouble _q1[4];  lhs.CopyTo(_q1);
-    SpiceDouble _q2[4];  rhs.CopyTo(_q2);
+	SpiceDouble _qout[4];
+	SpiceDouble _q1[4];  lhs.CopyTo(_q1);
+	SpiceDouble _q2[4];  rhs.CopyTo(_q2);
 
-    qxq_c(_q1, _q2, _qout);
-    return FSQuaternion{_qout};
+	qxq_c(_q1, _q2, _qout);
+	return FSQuaternion{_qout};
 }
