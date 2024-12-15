@@ -17,5 +17,5 @@
 
 #include "Logging/LogMacros.h"
 
-// Log category for MaxQ SPICE releated messages.
+// Log category for MaxQ SPICE related messages.
 SPICE_API DECLARE_LOG_CATEGORY_EXTERN(LogSpice, Log, All);

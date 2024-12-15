@@ -14,14 +14,14 @@
 class SPICE_API FSpiceModule : public IModuleInterface
 {
 public:
-	static inline FSpiceModule& Get()
-	{
-		return FModuleManager::LoadModuleChecked<FSpiceModule>("Spice");
-	}
+    static FSpiceModule& Get()
+    {
+        return FModuleManager::LoadModuleChecked<FSpiceModule>("Spice");
+    }
 
-	static inline bool IsAvailable()
-	{
-		return FModuleManager::Get().IsModuleLoaded("Spice");
-	}
+    static bool IsAvailable()
+    {
+        return FModuleManager::Get().IsModuleLoaded("Spice");
+    }
 };
 
