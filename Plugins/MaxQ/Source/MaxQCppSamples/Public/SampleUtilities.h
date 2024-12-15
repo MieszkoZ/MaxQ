@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SpiceTypes.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "UObject/WeakObjectPtrTemplates.h"

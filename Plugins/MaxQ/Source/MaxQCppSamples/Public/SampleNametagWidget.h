@@ -7,11 +7,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "SampleUtilities.h"
 #include "SampleNametagWidget.generated.h"
-
 
 
 UCLASS(Category="MaxQSamples")
